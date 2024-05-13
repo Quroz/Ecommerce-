@@ -1,7 +1,10 @@
 import { StyleSheet, Text, View, FlatList, Pressable, Image } from 'react-native'
 import React from 'react'
+import { useNavigation } from "@react-navigation/native"
 
 const SearchResults = ({ data, input, setInput }) => {
+
+    const navigation = useNavigation()
     return (
         <View style={{ padding: 10 }}>
             <FlatList
@@ -12,7 +15,13 @@ const SearchResults = ({ data, input, setInput }) => {
                             return null
                         }
                         return (
-                            <Pressable key={i} style={{ flexDirection: "row", alignItems: "center", marginVertical: 10 }}>
+                            <Pressable key={i} style={{ flexDirection: "row", alignItems: "center", marginVertical: 10 }}
+                                onPress={() => {
+                                    setInput(item.place); navigation.navigate("Home", {
+                                        input: item.place
+                                    })
+                                }}
+                            >
                                 <View>
                                     <Image source={{ uri: item.placeImage }} style={{ width: 70, height: 70 }} />
                                 </View>

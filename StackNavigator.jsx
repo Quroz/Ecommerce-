@@ -7,6 +7,7 @@ import BookingScreen from "./screens/BookingScreen"
 import ProfileScreen from "./screens/ProfileScreen"
 import { AntDesign, Entypo, Ionicons } from "@expo/vector-icons"
 import SearchScreen from './screens/SearchScreen';
+import PlacesScreen from './screens/PlacesScreen';
 
 const Tab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
@@ -63,6 +64,10 @@ export default function StackNavigator() {
                 }} />
                 <Stack.Screen name="Search" component={SearchScreen} options={{
                     headerShown: false
+                }} />
+                <Stack.Screen name="Places" component={PlacesScreen} options={{
+                    headerBackTitle: 'Back',
+                    headerTintColor: "white"
                 }} />
             </Stack.Navigator>
         </NavigationContainer>

@@ -1,6 +1,6 @@
-import { StyleSheet, Text, View, ScrollView, Pressable, TextInput, Button, Image } from 'react-native'
+import { StyleSheet, Text, View, ScrollView, Pressable, TextInput, Button, Image, Alert } from 'react-native'
 import React, { useLayoutEffect, useState } from 'react'
-import { useNavigation } from "@react-navigation/native"
+import { useNavigation, useRoute } from "@react-navigation/native"
 import { AntDesign, Entypo, Ionicons } from "@expo/vector-icons"
 import Header from '../components/Header'
 import { Feather } from '@expo/vector-icons';
@@ -15,6 +15,26 @@ const HomeScreen = () => {
     const [adults, setAdults] = useState(2)
     const [children, setChildren] = useState(0)
     const [modalVisible, setModalVisible] = useState(false)
+
+    const route = useRoute()
+
+    const searchPlaces = (place) => {
+        if (!route.params || !selectedDates) {
+            Alert.alert("Invalid details", "Please enter all details", [
+                {
+                    text: "Cancel",
+                    style: "cancel"
+                },
+                {
+                    text: "OK",
+
+                }
+            ])
+        }
+        else {
+            navigation.navigate("Places", { rooms: rooms, adults: adults, children: children, selectedDates: selectedDates, place: place })
+        }
+    }
 
     useLayoutEffect(() => {
         navigation.setOptions({
@@ -59,7 +79,7 @@ const HomeScreen = () => {
                             onPress={() => navigation.navigate("Search")}
                         >
                             <Feather name="search" size={24} color="black" />
-                            <TextInput placeholder='Enter your destination' style={{ flex: 1 }} />
+                            <TextInput placeholder={route.params ? route.params.input : 'Enter your destination'} style={{ flex: 1 }} />
                         </Pressable>
 
                         <Pressable style={{ alignItems: "center", flexDirection: "row", gap: 10, paddingHorizontal: 10, borderColor: "#ffc72c", borderWidth: 2, paddingVertical: 15 }}>
@@ -91,6 +111,7 @@ const HomeScreen = () => {
                         </Pressable>
 
                         <Pressable style={{ gap: 10, paddingHorizontal: 10, borderColor: "#ffc72c", borderWidth: 2, paddingVertical: 15, backgroundColor: "#2a52be" }}
+                            onPress={() => searchPlaces(route?.params.input)}
                         >
                             <Text style={{ textAlign: "center", fontSize: 15, fontWeight: "500", color: "white" }}>Search</Text>
                         </Pressable>

@@ -3,10 +3,12 @@ import React, { useLayoutEffect } from 'react'
 import { useNavigation, useRoute } from '@react-navigation/native'
 import { AntDesign, Entypo, Ionicons, Octicons, FontAwesome5 } from "@expo/vector-icons"
 import PropertyCard from '../components/PropertyCard'
+import { BottomModal, ModalFooter, ModalButton, ModalTitle, SlideAnimation, ModalContent } from "react-native-modals"
 
 const PlacesScreen = () => {
     const route = useRoute()
     const navigation = useNavigation()
+    const [modalVisible, setModalVisible] = React.useState(false)
 
     const data = [
         {
@@ -493,7 +495,9 @@ const PlacesScreen = () => {
     return (
         <View>
             <View style={{ flexDirection: "row", alignItems: "center", justifyContent: "space-between", paddingHorizontal: 20, padding: 12, backgroundColor: "white" }}>
-                <Pressable style={{ flexDirection: "row", alignItems: "center" }}>
+                <Pressable style={{ flexDirection: "row", alignItems: "center" }}
+                    onPress={() => setModalVisible(!modalVisible)}
+                >
                     <Octicons name="arrow-switch" size={22} color="gray" />
                     <Text style={{ fontSize: 15, fontWeight: "500", marginLeft: 8 }}>Sort</Text>
                 </Pressable>
@@ -517,6 +521,33 @@ const PlacesScreen = () => {
                 )}
 
             </ScrollView>
+
+            <BottomModal onBackdropPress={() => setModalVisible(!modalVisible)}
+                swipeDirection={["up", "down"]} swipeThreshold={200} footer={<ModalFooter>
+                    <Pressable style={{ paddingRight: 10, marginLeft: "auto", marginRight: "auto", marginVertical: 10 }}>
+                        <Text>Apply</Text>
+                    </Pressable>
+                </ModalFooter>}
+                modalTitle={<ModalTitle title="Sort and Filter" />}
+                modalAnimation={new SlideAnimation({
+                    slideFrom: "bottom"
+                })}
+                onHardwareBackPress={() => setModalVisible(!modalVisible)}
+                visible={modalVisible}
+                onTouchOutside={() => setModalVisible(!modalVisible)}
+            >
+                <ModalContent style={{ height: 280, width: "100%" }}>
+                    <View style={{ flexDirection: "row" }}>
+                        <View style={{ marginVertical: 10, flex: 2, height: 280, borderRightWidth: 1, borderColor: "#e0e0e0" }}>
+                            <Text style={{ textAlign: "center" }}>Sort</Text>
+                        </View>
+
+                        <View style={{ flex: 3 }}>
+
+                        </View>
+                    </View>
+                </ModalContent>
+            </BottomModal>
         </View>
     )
 }

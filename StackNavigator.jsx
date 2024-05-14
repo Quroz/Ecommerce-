@@ -8,6 +8,7 @@ import ProfileScreen from "./screens/ProfileScreen"
 import { AntDesign, Entypo, Ionicons } from "@expo/vector-icons"
 import SearchScreen from './screens/SearchScreen';
 import PlacesScreen from './screens/PlacesScreen';
+import MapScreen from './screens/MapScreen';
 
 const Tab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
@@ -68,6 +69,9 @@ export default function StackNavigator() {
                 <Stack.Screen name="Places" component={PlacesScreen} options={{
                     headerBackTitle: 'Back',
                     headerTintColor: "white"
+                }} />
+                <Stack.Screen name="Map" component={MapScreen} options={{
+                    headerShown: false
                 }} />
             </Stack.Navigator>
         </NavigationContainer>

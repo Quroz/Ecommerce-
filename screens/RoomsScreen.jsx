@@ -8,7 +8,7 @@ const RoomsScreen = () => {
 
     const route = useRoute();
     const navigation = useNavigation();
-    console.log("min bram", route.params.rooms)
+
     useLayoutEffect(() => {
         navigation.setOptions({
             headerShown: true,
@@ -33,7 +33,7 @@ const RoomsScreen = () => {
     return (
         <>
             <ScrollView>
-                {route.params.rooms.map((item, index) => (
+                {route.params?.rooms.map((item, index) => (
                     <Pressable key={index} style={{ margin: 10, backgroundColor: "white", padding: 10 }}>
                         <View style={{ flexDirection: "row", alignItems: "center", justifyContent: "space-between" }}>
                             <Text style={{ color: "#007fff", fontSize: 17, fontWeight: "500" }}>{item.name}</Text>

@@ -89,6 +89,9 @@ export default function StackNavigator() {
                 <Stack.Screen name="Confirmation" component={ConfirmationScreen} options={{
                     headerShown: true
                 }} />
+                <Stack.Screen name="Booking" component={BookingScreen} options={{
+                    headerShown: true
+                }} />
             </Stack.Navigator>
         </NavigationContainer>
     );
